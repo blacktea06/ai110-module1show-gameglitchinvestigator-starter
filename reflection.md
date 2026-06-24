@@ -59,6 +59,20 @@ fix the high/low bug, and update the import in `app.py`."
   confirm the tests were still collected and passing. Lesson: verify the AI's
   multi-step actions instead of assuming they worked.
 
+### Example 3 — a suggestion I chose to reject
+
+- **What the AI suggested:** After the main fix, it offered to *also* delete the
+  `str(st.session_state.secret)` conversion in `app.py` and rework `update_score`,
+  where a "Too High" guess oddly *adds* points on even attempts.
+- **My decision:** I rejected it for now. The `int()` coercion in `check_guess`
+  already neutralizes the string-secret problem, so removing the conversion
+  wasn't necessary to fix the bug, and changing `update_score` would alter the
+  game's scoring behavior without a failing test telling me it was wrong.
+- **Why this mattered:** I wanted the change to stay focused on the reported bug
+  and keep all tests green, rather than letting the AI expand the scope on its
+  own. Deciding *not* to take a suggestion is part of staying in control instead
+  of following the AI blindly.
+
 ---
 
 ## 3. Debugging and testing your fixes
