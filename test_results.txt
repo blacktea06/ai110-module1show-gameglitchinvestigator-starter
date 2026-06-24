@@ -1,0 +1,21 @@
+============================= test session starts =============================
+platform win32 -- Python 3.14.5, pytest-9.1.1, pluggy-1.6.0 -- C:\Python314\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\black\Desktop\Desktop\Programming\Codepath\AI110\ai110-module1show-gameglitchinvestigator-starter
+collecting ... collected 13 items
+
+tests/test_game_logic.py::test_winning_guess PASSED                      [  7%]
+tests/test_game_logic.py::test_guess_too_high PASSED                     [ 15%]
+tests/test_game_logic.py::test_guess_too_low PASSED                      [ 23%]
+tests/test_game_logic.py::TestCheckGuessHighLowBug::test_too_high_says_go_lower PASSED [ 30%]
+tests/test_game_logic.py::TestCheckGuessHighLowBug::test_too_low_says_go_higher PASSED [ 38%]
+tests/test_game_logic.py::TestCheckGuessHighLowBug::test_exact_guess_wins PASSED [ 46%]
+tests/test_game_logic.py::TestCheckGuessHighLowBug::test_string_secret_too_high_still_says_lower PASSED [ 53%]
+tests/test_game_logic.py::TestCheckGuessHighLowBug::test_string_secret_too_low_still_says_higher PASSED [ 61%]
+tests/test_game_logic.py::TestCheckGuessHighLowBug::test_string_secret_exact_match_wins PASSED [ 69%]
+tests/test_game_logic.py::TestCheckGuessHighLowBug::test_high_low_outcomes[99-50-Too High0] PASSED [ 76%]
+tests/test_game_logic.py::TestCheckGuessHighLowBug::test_high_low_outcomes[1-50-Too Low0] PASSED [ 84%]
+tests/test_game_logic.py::TestCheckGuessHighLowBug::test_high_low_outcomes[99-50-Too High1] PASSED [ 92%]
+tests/test_game_logic.py::TestCheckGuessHighLowBug::test_high_low_outcomes[1-50-Too Low1] PASSED [100%]
+
+============================= 13 passed in 0.03s ==============================
