@@ -28,23 +28,36 @@ Document at least 3 bugs you found. Add rows as needed.
 
 ## 2. How did you use AI as a teammate?
 
-I worked with Claude (Claude Code, running in agent mode inside VS Code). I used
-it to refactor the code and to help diagnose the backwards-hint bug, giving it
+**AI tool used:** Claude (Claude Code, running in agent mode inside VS Code). I
+used it to refactor the code and to diagnose the backwards-hint bug, giving it
 multi-step instructions like "move the logic functions into `logic_utils.py`,
 fix the high/low bug, and update the import in `app.py`."
 
-A correct suggestion: it identified that the real cause of the backwards hints
-was `app.py` turning the secret into a string on even attempts, which sent
-`check_guess` into a fallback branch with swapped messages. It fixed this by
-coercing both values to `int` before comparing. I verified the fix by running
-`pytest` (all tests passed) and by reading the diff to confirm the logic.
+### Example 1 — a correct suggestion
 
-A misleading/incorrect moment: when reorganizing the tests, the AI ran
-`git mv test tests`, which accidentally nested the folder into `tests/test/`
-because a `tests/` directory already existed. I caught this in the file listing
-and had it clean the structure back to a single `tests/test_game_logic.py`. It
-was a good reminder to check the AI's multi-step actions instead of assuming
-they worked.
+- **What the AI suggested:** That the real cause of the backwards hints was
+  `app.py` converting the secret to a string on even attempts, which pushed
+  `check_guess` into a fallback branch that returned swapped messages. It
+  suggested fixing it by coercing both `guess` and `secret` to `int` before
+  comparing, instead of patching the messages in the fallback branch.
+- **Correct or incorrect?** Correct — it fixed the root cause, not just the symptom.
+- **How I verified it:** I read the diff in `logic_utils.py` to confirm the
+  comparison is now numeric, then ran `python -m pytest tests/ -v` and watched
+  all 13 tests pass, including the string-secret cases (e.g. `check_guess(60, "50")`
+  now returns `"Too High"` with a "Go LOWER!" hint).
+
+### Example 2 — a misleading/incorrect suggestion
+
+- **What the AI suggested:** While reorganizing the tests it ran
+  `git mv test tests`, expecting a clean rename of the folder.
+- **Correct or incorrect?** Incorrect/misleading — a `tests/` directory already
+  existed, so the command nested the folder into `tests/test/` instead of
+  renaming it.
+- **How I verified it:** I checked the file listing (`find tests/`) and saw the
+  unexpected `tests/test/` path plus a duplicate test file. I had it clean the
+  structure back to a single `tests/test_game_logic.py` and re-ran `pytest` to
+  confirm the tests were still collected and passing. Lesson: verify the AI's
+  multi-step actions instead of assuming they worked.
 
 ---
 
